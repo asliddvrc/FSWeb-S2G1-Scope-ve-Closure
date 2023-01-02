@@ -64,10 +64,11 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru(){
+  let sonuc= Math.floor(Math.random()*15)+10;
+   return sonuc
 }
-
+console.log(takimSkoru())
 
 
 
@@ -86,10 +87,18 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
 }
 */ 
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
+function macSonucu(skor, ceyrek){
+  let takimlar= {
+    EvSahibi: 0,
+    KonukTakim: 0,
+  }
+  for (let i=0; i<ceyrek; i++) {
+ takimlar.EvSahibi+=skor();
+  takimlar.KonukTakim+=skor();
+  }
+  return takimlar;
 }
-
+console.log(macSonucu(takimSkoru,4));
 
 
 
@@ -109,8 +118,12 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   */
 
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+function periyotSkoru(skor) {
+  let obje= {
+    EvSahibi: skor(),
+    KonukTakim: skor(),
+  }
+  return obje;
 
 }
 
@@ -146,10 +159,31 @@ MAÇ UZAR ise skorTabelasi(periyotSkoru,takimSkoru,4)
 ] */
 // NOTE: Bununla ilgili bir test yoktur. Eğer logladığınız sonuçlar yukarıdakine benziyor ise tmamlandı sayabilirsiniz.
 
-function skorTabelasi(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+function skorTabelasi(periyotSkoru, takimSkoru, ceyrek) {
+  let periyot = {
+    EvSahibi:0,
+    KonukTakim:0
+  }
+  let array =[];
+  for (let i = 1; i <= ceyrek; i++) {
+    let x = periyotSkoru(takimSkoru);
+    periyot.EvSahibi+=x.EvSahibi;
+    periyot.KonukTakim+=x.KonukTakim;
+    array[i-1] = i + '.Periyot: Ev Sahibi: ' + x.EvSahibi+ '- KonukTakim: ' + x.KonukTakim;
+  }
+  if (periyot.EvSahibi===periyot.KonukTakim) {
+    let a = periyotSkoru(takimSkoru);
+    periyot.EvSahibi+=a.EvSahibi;
+    periyot.KonukTakim+=a.KonukTakim;
+    let array1 = '1. Uzatma: Ev Sahibi: ' + a.EvSahibi+ '- KonukTakim: ' + a.KonukTakim;
+    array.push(array1);
+  }
+  let b= 'Mac Sonucu: Ev Sahibi: ' + periyot.EvSahibi+ '- KonukTakim: ' + periyot.KonukTakim;
+  array.push(b);
+  return array
 }
 
+console.log(skorTabelasi(periyotSkoru,takimSkoru,4))
 
 
 
